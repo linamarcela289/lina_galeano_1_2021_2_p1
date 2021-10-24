@@ -40,16 +40,7 @@ class _BreedDetail_ScreenState extends State<BreedDetail_Screen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Imagenes'),
-        actions: <Widget>[
-          _isFiltered
-          ? IconButton(
-              onPressed: _removeFilter,
-              icon: Icon(Icons.filter_none)
-            ) : IconButton(
-              onPressed: _showFilter,
-              icon: Icon(Icons.filter_alt)
-            )
-        ],
+     
       ),
       body: Center(
         child: _showLoader ? LoaderComponent(text: 'Por favor espere...') : _getContent(),
@@ -148,7 +139,7 @@ class _BreedDetail_ScreenState extends State<BreedDetail_Screen> {
                       ),
 
                     ),
-                        Icon(Icons.arrow_forward_ios),
+                       // Icon(Icons.arrow_forward_ios),
                       ],
                     ),
                   ],
@@ -160,89 +151,6 @@ class _BreedDetail_ScreenState extends State<BreedDetail_Screen> {
       ),
     );
   }
-
-  void _showFilter() {
-    showDialog(
-      context: context, 
-      builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          title: Text('Filtrar Razas'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text('Escriba las primeras letras de la Raza'),
-              SizedBox(height: 10,),
-              TextField(
-                autofocus: true,
-                decoration: InputDecoration(
-                  hintText: 'Criterio de búsqueda...',
-                  labelText: 'Buscar',
-                  suffixIcon: Icon(Icons.search)
-                ),
-                onChanged: (value) {
-                  _search = value;
-                },
-              )
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(), 
-              child: Text('Cancelar')
-            ),
-            TextButton(
-              onPressed: () => _filter(), 
-              child: Text('Filtrar')
-            ),
-          ],
-        );
-      });
   }
-
-  void _removeFilter() {
-    setState(() {
-      _isFiltered = false;
-    });
-    _getBreedImage();
-  }
-
-  void _filter() {
-    if (_search.isEmpty) {
-      return;
-    }
-
-    List<BreedImages> filteredList = [];
-    for (var breeds in _breedimages) {
-
-    }
-
-    setState(() {
-      _breedimages = filteredList;
-      _isFiltered = true;
-    });
-
-    Navigator.of(context).pop();
-  }
-
-  void _goAdd() async {
-    String? result = await Navigator.push(
-      context, ()
-    );
-    if (result == 'yes') {
-      _getBreedImage();
-    }
-  }
-  void _goEdit(BreedImages breeds) async {
-    String? result = await Navigator.push(
-      context, 
-      ( 
-      )
-    );
-    if (result == 'yes') {
-      _getBreedImage();
-    }
-  }
-}
+  
+  

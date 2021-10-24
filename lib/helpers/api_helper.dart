@@ -1,17 +1,11 @@
-
 import 'dart:convert';
-
 import 'package:appdogs/Models/response.dart';
 import 'package:appdogs/Models/breed.dart';
 import 'package:appdogs/Models/imagedog.dart';
 import 'package:http/http.dart' as http;
-
 import 'constans.dart';
 
 class ApiHelper {
-
-
-
  static Future<Response> getBreeds() async {
     
        var url = Uri.parse('${Constans.apiUrl}');
