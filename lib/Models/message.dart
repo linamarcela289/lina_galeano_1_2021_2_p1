@@ -15,8 +15,11 @@ class Message {
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+   // data.keys
     data['affenpinscher'] = this.affenpinscher;
     data['australian'] = this.australian;
+
     return data;
   }
+
 }

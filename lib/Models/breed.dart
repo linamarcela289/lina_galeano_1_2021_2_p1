@@ -1,25 +1,16 @@
 
+class Breed {
+  String breed = "";
 
+  Breed({required this.breed});
 
-import 'message.dart';
-
-class Breeds {
-  Message message = Message(
-    affenpinscher:  [""], 
-    australian:  [""]);
-    String status = '';
-
-  Breeds({ required this.message, required this.status});
-
-   Breeds.fromJson(Map<String, dynamic> json) {
-    message = Message.fromJson(json ['message']);
-    status = json['status'];
+  Breed.fromJson(Map<String, dynamic> json) {
+    breed = json['breed'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message.toJson();
-    data['status'] = this.status;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['breed'] = breed;
     return data;
   }
 }

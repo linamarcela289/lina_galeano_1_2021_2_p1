@@ -1,36 +1,45 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:appdogs/Models/response.dart';
 import 'package:appdogs/Models/breed.dart';
 import 'package:appdogs/Models/imagedog.dart';
+import 'package:appdogs/Models/response.dart';
 import 'package:appdogs/components/loader_component.dart';
 import 'package:appdogs/helpers/api_helper.dart';
-import 'package:appdogs/screens/breed_detail_screen.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Breed_Screens extends StatefulWidget {
+
+
+class BreedDetail_Screen extends StatefulWidget {
+  final Breed breed;
+
+BreedDetail_Screen({required this.breed});
 
   @override
-  _Breed_ScreensState createState() => _Breed_ScreensState();
+  _BreedDetail_ScreenState createState() => _BreedDetail_ScreenState();
+
 }
 
-class _Breed_ScreensState extends State<Breed_Screens> {
- List<Breed> _breeds = [];
+class _BreedDetail_ScreenState extends State<BreedDetail_Screen> {
+  
+  List<BreedImages> _breedimages = [];
+  List<Breed> _breeds = [];
+ // Breed _breed = [];
   bool _showLoader = false;
   bool _isFiltered = false;
   String _search = '';
 
-@override
+  @override
   void initState() {
     super.initState();
-    _getBreeds();
+    _getBreedImage();
   }
    @override
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Razas'),
+        title: Text('Imagenes'),
         actions: <Widget>[
           _isFiltered
           ? IconButton(
@@ -47,7 +56,8 @@ class _Breed_ScreensState extends State<Breed_Screens> {
       ),   
     );
   }
-   Future<Null> _getBreeds() async {
+  
+   Future<Null> _getBreedImage() async {
     setState(() {
       _showLoader = true;
     });
@@ -67,7 +77,7 @@ class _Breed_ScreensState extends State<Breed_Screens> {
       return;
     }
 
-    Response response = await ApiHelper.getBreeds();
+    Response response = await ApiHelper.getBreedImage("bouvier");
 
      setState(() {
       _showLoader = false;
@@ -86,12 +96,12 @@ class _Breed_ScreensState extends State<Breed_Screens> {
     }
 
     setState(() {
-      _breeds = response.result;
+      _breedimages = response.result;
     });
   }
 
   Widget _getContent() {
-    return _breeds.length == 0 
+    return _breedimages.length == 0 
       ? _noContent()
       : _getListView();
   }
@@ -114,12 +124,11 @@ class _Breed_ScreensState extends State<Breed_Screens> {
   }
   Widget _getListView() {
     return RefreshIndicator(
-      onRefresh: _getBreeds,
+      onRefresh: _getBreedImage,
       child: ListView(
-        children: _breeds.map((e) {
+        children: _breedimages.map((e) {
           return Card(
             child: InkWell(
-              onTap: () => _goBreedImage(e),
               child: Container(
                 margin: EdgeInsets.all(10),
                 padding: EdgeInsets.all(5),
@@ -129,7 +138,7 @@ class _Breed_ScreensState extends State<Breed_Screens> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          e.breed, 
+                          e.image, 
                           style: TextStyle(
                             fontSize: 20,
                           ),
@@ -147,20 +156,6 @@ class _Breed_ScreensState extends State<Breed_Screens> {
     );
   }
 
-void _goBreedImage(Breed breed) async {
-    String? result = await Navigator.push(
-      context, 
-      MaterialPageRoute(
-        builder: (context) => BreedDetail_Screen(
-          breed : breed
-        )
-      )
-    );
-    if (result == 'yes') {
-     // _getUsers();
-    }
-  }
-  
   void _showFilter() {
     showDialog(
       context: context, 
@@ -206,7 +201,7 @@ void _goBreedImage(Breed breed) async {
     setState(() {
       _isFiltered = false;
     });
-    _getBreeds();
+    _getBreedImage();
   }
 
   void _filter() {
@@ -214,13 +209,13 @@ void _goBreedImage(Breed breed) async {
       return;
     }
 
-    List<Breed> filteredList = [];
-    for (var breeds in _breeds) {
+    List<BreedImages> filteredList = [];
+    for (var breeds in _breedimages) {
 
     }
 
     setState(() {
-      _breeds = filteredList;
+      _breedimages = filteredList;
       _isFiltered = true;
     });
 
@@ -232,22 +227,17 @@ void _goBreedImage(Breed breed) async {
       context, ()
     );
     if (result == 'yes') {
-      _getBreeds();
+      _getBreedImage();
     }
   }
-  void _goEdit(Breed breeds) async {
+  void _goEdit(BreedImages breeds) async {
     String? result = await Navigator.push(
       context, 
       ( 
       )
     );
     if (result == 'yes') {
-      _getBreeds();
+      _getBreedImage();
     }
   }
-
-   }
-  
- 
-
-
+}
