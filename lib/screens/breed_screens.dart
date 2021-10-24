@@ -216,7 +216,9 @@ void _goBreedImage(Breed breed) async {
 
     List<Breed> filteredList = [];
     for (var breeds in _breeds) {
-
+       if (breeds.breed.toLowerCase().contains(_search.toLowerCase())) {
+        filteredList.add(breeds);
+      }
     }
 
     setState(() {

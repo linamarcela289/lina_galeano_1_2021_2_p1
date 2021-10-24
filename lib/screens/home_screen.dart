@@ -13,6 +13,7 @@ class _HomeScreensState extends State<HomeScreens> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
+        
         child: Column(
            mainAxisAlignment: MainAxisAlignment.center,
            children:<Widget> [
@@ -20,7 +21,7 @@ class _HomeScreensState extends State<HomeScreens> {
              SizedBox(height: 20,),
               _showButtons(),
            ],
-          
+
         ) ,)
     );
   }
@@ -47,12 +48,11 @@ class _HomeScreensState extends State<HomeScreens> {
               (Set<MaterialState> states) {
                 return Colors.orange;
               }
-          ),
-          ),
-          onPressed: () => _goBreedScreens(),
-            
-          ),
         ),
+      ),
+          onPressed: () => _goBreedScreens(),
+    ),
+  ),
         SizedBox(width: 20,),
 
       ],
