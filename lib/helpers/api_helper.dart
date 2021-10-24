@@ -42,10 +42,7 @@ for(String key in data.keys){
 
 static Future<Response> getBreedImage( String breed) async {
     var url = Uri.parse("${Constans.apiUrlImage}$breed/images");
-
-     //var url = Uri.parse("$baseUrl/breed/$name/images");
-       //var url = Uri.parse('${Constans.apiUrl}/bouvier/images');
-        var response = await http.get(
+     var response = await http.get(
        url,
       );
 

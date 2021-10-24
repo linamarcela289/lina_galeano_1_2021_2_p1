@@ -77,7 +77,7 @@ class _BreedDetail_ScreenState extends State<BreedDetail_Screen> {
       return;
     }
 
-    Response response = await ApiHelper.getBreedImage("bouvier");
+    Response response = await ApiHelper.getBreedImage(widget.breed.breed);
 
      setState(() {
       _showLoader = false;
@@ -137,12 +137,17 @@ class _BreedDetail_ScreenState extends State<BreedDetail_Screen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          e.image, 
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
+                       ClipRRect(
+                      borderRadius: BorderRadius.circular(40),
+                      child: Image.network(
+                        e.image,
+                        
+                        fit: BoxFit.cover,
+                        height: 80,
+                        width: 80,
+                      ),
+
+                    ),
                         Icon(Icons.arrow_forward_ios),
                       ],
                     ),
